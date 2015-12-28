@@ -1,0 +1,78 @@
+#summary General information about the applet and how to install it on a website.
+#labels Featured,Phase-Deploy
+
+= Introduction =
+
+So you're looking for an easy way to embed a MOO/MUD/MUSH/etc client in your website? Perfect! The EZMoo Applet will _easily_ let you accomplish this in just a few minutes.
+
+*Note:* This page is updated to always be current with the _most recent version_ of the EZMoo applet. This is especially important to additional features/customizations detailed below. So if you have an older version of the EZMoo Applet, it is _highly_ recommended to update to the latest EZMoo Applet from the [http://code.google.com/p/ezmoo/downloads/list Downloads] tab.
+
+*Disclaimer:* Since this project was originally inspired by Alex Stewart's Cup-O MUD client, those of you familiar with Cup-O MUD will see an uncanny resemblance to the features/parameters syntax used in that applet. His syntax was so so simple I've decided to implement it here the same way. Since the parameter syntax is the same, I've used his descriptions from his [http://tecfa.unige.ch/moo/clients/cupomud/CupOmud_docs.html documentation site] until I have rewritten them. -- Thanks Alex (contact us if you ever read this!)
+
+= Quick Start =
+
+The instructions here are for quick start purposes only, and use the defaults for most of the parameters provided by the applet.
+
+  # Download the latest EZMooApplet jar file (_ex: EZMooApplet-1.0.jar_) from the Downloads tab.
+  # Upload _EZMooApplet-1.0.jar_ file to your webserver.
+  # Add the following HTML code snippet an HTML file *in the same directory* has the _EZMooApplet-1.0.jar_ file:
+{{{
+<applet code="com.rwoar.moo.client.applet.Applet", 
+archive="EZMooApplet-1.0.jar", 
+name="EZMoo Applet",
+width="800", 
+height="600"> 
+ 
+<param name="host" value="myhost.com"/> 
+<param name="port" value="5555"/> 
+ 
+</applet>
+}}}
+
+*Important Note:* The MOO/MUD/MUSH/etc *must* be hosted on the *same server* as the applet. For example: if the EZMoo applet is located at _http://www.ezmoo.com/applet.html_,  
+it can only connect to a game with a host of _ezmoo.com_. This is a Java security features; if you want to get around this please look at [EZMooApplet#Signing_the_Applet Signing The Applet] section.
+
+= Detailed Information =
+
+==Customizations==
+
+|| *Name* || *Value* || *Required* || *Description* ||
+|| host || String || Y || Must be where the .jar is hosted unless you [EZMooApplet#Signing_the_Applet sign] it. ||
+|| port || Number || Y || The port where the MOO/MUD/MUSH is running ||
+|| input_bgcolor || Color || N || Background color of the input window ||
+|| input_fgcolor || Color || N || Foreground color of the input window ||
+|| output_bgcolor || Color || N || Background color of the output window ||
+|| output_fgcolor || Color || N || Foreground color of the output window ||
+|| echo_color || Color || N || Color of the local echo ||
+|| echo_prefix || String || N || This string is prefixed to the beginning of all local echos ||
+|| font || Font || N || Font used for the applet ||
+|| recall_amount || Number || N || Amount of previous commands to keep in the recall buffer ||
+
+*Strings* and *Numbers* values should both have double quotes (") surrounding it. For example, look at the host (String) and the port (Number) parameters:
+{{{
+<param name="host" value="localhost">
+<param name="port" value="5555"/> 
+}}}
+
+*Colors* are specified using the same syntax as Netscape uses for background/foreground colors in its tag, specifically a sequence of 6 hexidecimal digits, representing the red (00-FF), green (00-FF), and blue (00-FF) components of the color, in order, thus:
+
+  * 000000 is black
+  * FFFFFF is white
+  * FF0000 is bright red
+  * 008012 is a color with no red (00 hex), half green (80 hex), and a bit of blue (12 hex)
+  * 7F7F7F is a shade of gray (theoretically) somewhere around halfway between black and white
+ 
+Color values can optionally be prefixed with "#" (the standard web-based prefix indicating hex) or "0x" (the standard C prefix indicating a hex number), but this is not required.
+
+*Font* specifications have the form `name[-style][.size]` (`[]` indicates optional portions), where name is the font name (such as "Courier"), style is the font style (one of "`Bold`", "`Italic`", or "`BoldItalic`", the default is plain), and size is a number indicating point size (default is 10); for example, "Courier-Bold.12".
+
+Check out a sample HTML form now [SampleAppletHTMLFile here].
+
+==Signing The Applet==
+
+When running a Java applet, the applet is actually downloaded from the website to your computer and then run locally. The applet is then run in a "sandbox" which restricts access to the local filesystem (such as the hard drive) and internet connections. The only outside connections that are allowed to be made are to those where the applet was originally downloaded.
+
+This sandbox is an important security feature with applets which hinders malicious applets from doing harm to your computer without you knowing about it.
+
+If you must make outside connections you must sign the applet (instructions can be found online via Google), which will then prompt the user for permission to run the applet.
+  

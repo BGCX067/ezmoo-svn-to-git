@@ -1,0 +1,37 @@
+The following is a sample HTML page with the applet embedded. For example purposes I have used all available parameters present at the time of writing this.
+
+{{{
+<html> 
+<head> 
+<title>EZMoo Applet Nightly Build</title> 
+</head> 
+ 
+<body> 
+<center> 
+ 
+<h1><b>EZMoo Applet</b></h1> 
+<h2>Experimental Nightly Build</h2> 
+ 
+<applet code="com.rwoar.moo.client.applet.Applet", 
+archive="EZMooApplet-latest.jar",
+name="EZMoo Applet", 
+width="800", 
+height="600"> 
+ 
+<param name="host" value="localhost">
+<param name="port" value="5555"/> 
+<param name="input_bgcolor" value="2F614F"/>
+<param name="input_fgcolor" value="DE073C"/>
+<param name="output_bgcolor" value="0720DE"/>
+<param name="output_fgcolor" value="0DFF00"/>
+<param name="echo_color" value="00FFE1"/>
+<param name="echo_prefix" value="--> "/>
+<param name="font" value="Comic Sans MS-bold.24"/>
+<param name="recall_amount" value="20"/>
+ 
+</applet> 
+ 
+</center> 
+</body> 
+</html>
+}}}

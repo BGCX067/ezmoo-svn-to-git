@@ -1,0 +1,45 @@
+<project name="EZMooApplet-latest" basedir="." default="upload-copland">
+  
+  <property name="src.dir" value="ezmoo-read-only/src"/>
+  <property name="build.dir" value="build"/>
+  <property name="classes.dir" value="${build.dir}/classes"/>
+  <property name="jar.dir" value="${build.dir}"/>
+  <property name="jar.name" value="${ant.project.name}.jar"/>
+  <property name="upload.dest" value="fxfitz@copland.udel.edu:public_html/applet/"/>
+  <property name="key.alias" value="ezmooapplet"/>
+  <property name="key.keystore" value="testapplet.keystore"/>
+  <property name="key.pass" value="testapplet123"/>
+  
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+  </target>
+
+  <target name="svnupdate" depends="clean">
+    <exec dir="${src.dir}" executable="svn">
+      <arg line="update"/>
+      </exec>
+  </target>
+  
+  <target name="compile" depends="svnupdate">
+    <mkdir dir="${classes.dir}" />
+    <javac srcdir="${src.dir}" destdir="${classes.dir}" />
+  </target>
+  
+  <target name="jar" depends="compile">
+    <jar destfile="${jar.dir}/${jar.name}" basedir="${classes.dir}" />
+  </target>
+
+  <target name="signjar" depends="jar">
+    <signjar jar="${jar.dir}/${jar.name}" alias="ezmooapplet"
+	     keystore="testapplet.keystore" storepass="testapplet123"/>
+  </target>
+  
+  <target name="upload-copland" depends="signjar">
+    <exec executable="scp">
+      <arg line="${jar.dir}/${jar.name} ${upload.dest}"/>
+    </exec>
+  </target>
+
+</project>
+    
+    

@@ -1,0 +1,11 @@
+#summary Development environment setup guide
+#labels Phase-Implementation
+
+= Introduction =
+
+This guide is intended to help developers easily and quickly get the EZMoo source code onto your computer and contribute.
+
+
+= Details =
+
+_Has not been written yet._
